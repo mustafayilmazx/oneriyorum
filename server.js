@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const {auth} = require('./src/middlewares/auth');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -17,13 +18,11 @@ app.get("/:id", function(req, res){
 })
 
 
-app.post("/create-post", function(req,res){
-    const data = req.body;
-    const title = data.title;
-    const content = data.content;
-    console.log(title + ' ' + content);
-    res.write(`Hello ${title}`);
-    res.status(201).send()
+app.post("/create",auth,(req,res) => {
+    res.send("Başarılı");
 })
+
+
+
 
 app.listen(3000)
