@@ -35,13 +35,14 @@ const UserSchema = Mongoose.Schema(
         },
         biography: {
             type: String,
-            max: 300
+            max: 300,
+            default: null,
         },
         social: {
-            website: {type: String},
-            facebook: {type: String },
-            twitter: {type: String },
-            instagram: {type: String },
+            website: {type: String, default:null},
+            facebook: {type: String, default:null},
+            twitter: {type: String, default:null},
+            instagram: {type: String, default:null},
         },
         comments: [
             {

@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const loaders = require('./src/loaders');
 const {auth} = require('./src/middlewares/auth');
 
