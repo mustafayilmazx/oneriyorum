@@ -16,7 +16,6 @@ const UserSchema = Mongoose.Schema(
             unique: true,
             lowercase: true,
             trim: true,
-            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
         },
         avatar: {
             type: Number,
@@ -30,7 +29,6 @@ const UserSchema = Mongoose.Schema(
             type: String,
             min: 8,
             required: true,
-            select: false,
             trim: true,
         },
         biography: {
@@ -73,4 +71,4 @@ const UserSchema = Mongoose.Schema(
     { timestamps: true, versionKey: false }
 );
 
-module.exports = Mongoose.Schema('user',UserSchema);
+module.exports = Mongoose.model('user',UserSchema);

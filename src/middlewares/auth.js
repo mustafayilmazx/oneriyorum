@@ -1,14 +1,25 @@
-const users = ['mustafa','gülcan','güler','mehmet','emirhan','zeynep'];
-const pwd = "Mustafa12";
+const jwt = require('jsonwebtoken');
+const createError = require('http-errors');
 
-const auth =  (req,res,next) => {
-    const password = req.body.password;
-    if ( password != pwd ){
-        res.send("Başarısız");
+
+verifyToken = (req, res, next) => {
+    const token = req.headers["x-access-token"];
+  
+    if (!token) {
+      return res.status(403).send({
+        message: "No token provided!"
+      });
     }
-    users.push(req.body.username);
-    console.log(users);
-    next();
-}
+  
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        return res.status(401).send({
+          message: "Unauthorized!"
+        });
+      }
+      req.userId = decoded.id;
+      next();
+    });
+  };
 
 module.exports = {auth};
