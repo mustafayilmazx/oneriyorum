@@ -1,28 +1,30 @@
+require('dotenv').config();
 const express = require('express');
-const app = express();
-const {auth} = require('./src/middlewares/auth');
+const loaders = require('./src/loaders');
+const routes = require('./src/routers');
+const middleWares = require('./src/middlewares');
+loaders();
 
+
+const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 
+
+//ROUTES 
+app.use('/api/post/', routes.post);
+app.use('/api/user/', routes.user);
 
 app.get("/", function(req, res){
     res.send("Hello World")
 });
 
 
-app.get("/:id", function(req, res){
-    const id = req.params.id
-    res.send(`Hello ${id}`)
+
+app.use(middleWares.errorHandler);
+
+const port = process.env.port || 3001
+app.listen(port,() => {
+    console.log(`Uygulama ${port} portunda çalışmaya başladı...`)
 })
-
-
-app.post("/create",auth,(req,res) => {
-    res.send("Başarılı");
-})
-
-
-
-
-app.listen(3000)
