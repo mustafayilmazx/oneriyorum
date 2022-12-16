@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const loaders = require('./src/loaders');
-const errorHandler = require('./src/middlewares/errorHandler')
 const routes = require('./src/routers');
+const middleWares = require('./src/middlewares');
 loaders();
 
 
@@ -13,8 +13,8 @@ app.use(express.urlencoded({extended: false}));
 
 
 //ROUTES 
-app.use('/api/login',routes.login);
-app.use('/api/signup',routes.signup);
+app.use('/api/post/', routes.post);
+app.use('/api/user/', routes.user);
 
 app.get("/", function(req, res){
     res.send("Hello World")
@@ -22,7 +22,7 @@ app.get("/", function(req, res){
 
 
 
-app.use(errorHandler);
+app.use(middleWares.errorHandler);
 
 const port = process.env.port || 3001
 app.listen(port,() => {

@@ -103,7 +103,9 @@ const register = async (req, res, next) => {
             const token = await generateToken(req, user._id);
                 
             res.json({
-                result: result,
+                success: true,
+                username: result.username,
+                email : result.email,
                 token: token
             });
         } catch (err) {

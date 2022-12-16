@@ -5,7 +5,8 @@ const PostSchema = new Mongoose.Schema(
         content: {
             type: String,
             require: true,
-            max: 400
+            max: 400,
+            min: 50
         },
         parentUser: {
             type: Mongoose.Schema.Types.ObjectId,
