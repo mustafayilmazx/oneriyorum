@@ -48,8 +48,7 @@ final = [item for sublist in final for item in sublist]
 #if element in final list is in liste list, delete it
 for i in range(len(liste)):
     if liste[i] in final:
-        final.remove(liste[i])
-
+        final = list(filter(lambda a: a != liste[i], final))
 
 #create dict to count the number of times a movie appears in the list
 movie_dict = {}
