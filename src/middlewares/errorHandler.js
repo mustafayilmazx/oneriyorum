@@ -1,4 +1,4 @@
-const hataYakalayici = (err, req, res, next) => {
+const errorHandler = (err, req, res, next) => {
     
     console.log(err.message);
 
@@ -40,4 +40,4 @@ const hataYakalayici = (err, req, res, next) => {
    
 }
 
-module.exports = hataYakalayici;
+module.exports = errorHandler;

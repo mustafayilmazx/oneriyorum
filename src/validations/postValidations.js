@@ -8,6 +8,7 @@ const PostValidation = Joi.object({
 
     parentUser : Joi.string()
     .length(24)
+    .required()
 })
 
 

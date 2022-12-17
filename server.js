@@ -15,6 +15,8 @@ app.use(express.urlencoded({extended: false}));
 //ROUTES 
 app.use('/api/post/', routes.post);
 app.use('/api/user/', routes.user);
+app.use('/api/comment/', routes.comment);
+
 
 app.get("/", function(req, res){
     res.send("Hello World")
