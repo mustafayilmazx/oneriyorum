@@ -13,6 +13,10 @@ const PostSchema = new Mongoose.Schema(
             ref: 'user',
             require: true,
         },
+        parentUsername: {
+            type: String,
+            require: true,
+        },
         comments: [
             {
                 type: Mongoose.Schema.Types.ObjectId,

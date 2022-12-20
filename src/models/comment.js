@@ -24,6 +24,8 @@ const CommentSchema = new Mongoose.Schema(
             },
         ]
 
+    },{
+        timestamps: true
     }
 );
 
