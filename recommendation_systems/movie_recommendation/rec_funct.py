@@ -1,8 +1,11 @@
 import pickle
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
-df2 = pickle.load(open("dataframe.pkl","rb"))
-indices = pickle.load(open("indices.pkl","rb"))
-cosine_sim = pickle.load(open("cosine_sim.pkl","rb"))
+
+df2 = pickle.load(open(current_dir + "/dataframe.pkl","rb"))
+indices = pickle.load(open(current_dir + "/indices.pkl","rb"))
+cosine_sim = pickle.load(open(current_dir + "/cosine_sim.pkl","rb"))
 
 def get_recommendations(title, cosine_sim=cosine_sim):
 
@@ -24,7 +27,7 @@ def get_recommendations(title, cosine_sim=cosine_sim):
     result = df2['title'].iloc[movie_indices]._values
     # Return the top 10 most similar movies
     return result
-f
+    
 liste = ["Avatar", "Alvin and the Chipmunks: Chipwrecked", "The Dark Knight Rises", "The Avengers","Spider-Man 3"]
 
 

@@ -1,7 +1,11 @@
 import pickle
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# load the data
 
-df2 = pickle.load(open('df2.pkl', 'rb'))
-idlist = pickle.load(open('idlist.pkl', 'rb'))
+
+df2 = pickle.load(open(current_dir + '/df2.pkl', 'rb'))
+idlist = pickle.load(open(current_dir + '/idlist.pkl', 'rb'))
 
 def BookRecommender(book_name):
     book_list_name = []

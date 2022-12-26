@@ -1,0 +1,9 @@
+POST http://127.0.0.1:5000/show-recommend
+content-type: application/json
+
+{
+    "show_list" : ["Deadly Sins","Stranger Things"],
+    "movie_list" : ["Avatar","Spider-Man 3","Tangled"],
+    "book_list" : ["The War","Writing"],
+}
+
