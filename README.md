@@ -1,3 +1,1 @@
-# oneriyorum
-
-[Irmak Sılay Kara](https://github.com/irmaksilay)
+# movie,book and tv serie recommendation platform ---> ReComment  
