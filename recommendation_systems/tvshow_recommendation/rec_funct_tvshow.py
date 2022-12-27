@@ -3,8 +3,16 @@ import math
 import pandas as pd
 import numpy as np
 
-df = pickle.load(open('df.pkl', 'rb'))
-G = pickle.load(open('graph.pkl', 'rb'))
+
+# get current dir path
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# load the data
+df = pickle.load(open(current_dir + '/df.pkl', 'rb'))
+G = pickle.load(open(current_dir + '/graph.pkl', 'rb'))
+
+# df = pickle.load(open('df.pkl', 'rb'))
+# G = pickle.load(open('graph.pkl', 'rb'))
 
 def get_recommendation(root):
     commons_dict = {}
@@ -36,7 +44,7 @@ def get_recommendation(root):
     final_list
     return final_list;
 
-liste = ["Stranger Things", "Deadly Sins", "Winx Club", "Riverdale", "Lupin"]
+# liste = ["Stranger Things", "Deadly Sins", "Winx Club", "Riverdale", "Lupin"]
 
 def tvshow_recommender(liste):
     result = []
@@ -64,10 +72,10 @@ def tvshow_recommender(liste):
 def tvshow_dict(liste):
     tvshow_dict_list = []
     for tvshow in tvshow_recommender(liste):
-        tvshow_dict_list.append(df.loc[df['title'] == tvshow].to_dict())
+        tvshow_dict_list.append(df.loc[df['title'] == tvshow].to_json())
     return tvshow_dict_list
 
-print(tvshow_dict(liste))
+# print(tvshow_dict(liste))
 
 
 
