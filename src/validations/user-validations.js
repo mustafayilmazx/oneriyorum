@@ -26,8 +26,29 @@ const loginValidation = Joi.object({
     .required(),
 })
 
+const changePasswordValidation = Joi.object({
+    oldPassword: Joi.string()
+    .min(8)
+    .required()
+    .messages({
+        'string.empty': `Old password can't be empty`,
+    }),
+    newPassword: Joi.string()
+    .min(8)
+    .required()
+    .messages({
+        'string.empty': `New password can't be empty`,
+    }),
+
+    userId: Joi.string()
+    .required()
+    .messages({
+        'string.empty': `User Id can't be empty`,
+    }),
+})
 
 module.exports = {
     registerValidation,
     loginValidation,
+    changePasswordValidation
 }

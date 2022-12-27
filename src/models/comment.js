@@ -10,7 +10,7 @@ const CommentSchema = new Mongoose.Schema(
         content: {
             type: String,
             min: 1,
-            max: 140,
+            max: 250,
             require: true,
         },
         postId: {
@@ -24,6 +24,8 @@ const CommentSchema = new Mongoose.Schema(
             },
         ]
 
+    },{
+        timestamps: true
     }
 );
 

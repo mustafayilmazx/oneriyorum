@@ -1,0 +1,187 @@
+BASE_URL = http://localhost:8080
+
+Fields are required if didn't specify optional
+
+
+User Operations
+
+1. Register
+
+1.1 Register Request
+
+Request Url => BASE_URL/api/user/register
+Method => Post
+{
+	"username" : "deneme" // string , min 6, max 20, must be unique
+	"email" : "deneme@deneme.com" // must be unique
+	"password" : "deneme123" // min 8
+}
+
+1.2 Register Response
+
+{
+	"success" : true
+	"username" : "deneme123"
+	"email" : "deneme@deneme.com"
+	"token" : auth_token // should be stored in local storage or cookie because it will be used for authentication operations
+}
+
+2. Login
+
+2.1 Login Request
+Request Url => BASE_URL/api/user/login
+Method => Post
+
+{
+	"username" : "deneme"
+	"password" : "deneme123"
+}
+
+2.2 Login Response
+{
+	"success" : true
+	"username" : "deneme"
+	"token" : auth_token // should be stored in local storage or cookie because it will be used for authentication operations
+}
+
+
+3. Change Password
+
+3.1 Change Password Request
+Request Url => BASE_URL/api/user/change-password
+Method => Post
+{
+	"oldPassword" : "deneme123" // min 8
+	"newPassword" : "deneme12345" // min 8
+}
+
+3.2 Change Password Response
+{
+	"success" : true
+	"message" : "Password changed succesfully."
+}
+
+
+4. Get User Infos
+
+4.1 Get User Infos Request
+Request Url => BASE_URL/api/user/get-user-infos
+Method => Get
+{
+	"username" : "deneme"
+}
+
+
+4.2 Get User Infos Response
+{
+	"success" : true
+	"username" : "deneme"
+	"biopraphy" : "this is a biopraphy"
+	"posts" : posts_array // this is an array which includes post id's, if you want to user's post details you have to request get-posts url
+	"social" : social_media_adresses // this is an dict which includes social media infos
+}
+
+
+
+
+POST OPERATIONS
+
+5. Create Post
+
+5.1 Create Post Request
+Request Url => BASE_URL/api/post/create-post
+Method => Post
+{
+	"content" : "post content" // min 50,max 400 , you have to use token for auth in header with x-access-token
+}
+
+6 Create Post Response
+{
+	"success" : true
+	"postId" : "asdasdasdasd" // post id
+}
+
+6.1 Edit Post Request
+Request Url => BASE_URL/api/post/edit-post
+Method => Put
+{
+	"content" : "post content" // min 50,max 400 , you have to use token for auth in header with x-access-token
+	"postId" : "asdasdas" // postId which you want to edit
+}
+
+6.2 Edit Post Response
+{
+	"success" : true
+	"postId" : "asdasdasdasd" // post id
+}
+
+
+7. Get Posts
+
+7.1 Get Posts Request
+Request Url => BASE_URL/api/post/get-posts
+Method => Get
+{
+	"username" : "dendeme" // optional, if you want to get specific user's post
+	"page" : 1 // int, each page has 10 post and page 1 returns between 1-10 
+}
+
+// After this part, responses will be in responses.json  (i will send)
+
+
+8. Like Posts
+
+8.1 Like Post Request
+Request Url => BASE_URL/api/post/like-post
+Method => Post
+{
+	"postId" : "63a1aa96f1df748e8a3cc331" 
+}
+
+
+9. Unlike Posts
+
+9.1 Unline Post Request
+Request Url => BASE_URL/api/post/like-post
+Method => Post
+{
+	"postId" : "63a1aa96f1df748e8a3cc331" 
+}
+
+
+Comment Operations
+
+10. Create Comment
+
+10.1 Create Comment Request
+Request Url => BASE_URL/api/comment/create-comment
+Method => Post
+{
+	"content" : "deneme",
+	"postId" : "asdasdas" // which post?
+}
+
+11. Edit Comment
+
+11.1 Edit Comment Request
+Request Url => BASE_URL/api/comment/edit-comment
+Method => Put
+{
+	"content" : "asdasdas"
+	"commentId" : "asdasdas" // which comment ?
+}
+
+
+SEARCH OPERATIONS
+
+Request Urls =>
+BASE_URL/api/books/getbooks
+BASE_URL/api/movies/getmovies
+BASE_URL/api/shows/getshows
+
+Method => Get
+
+{
+	"title" : "asdasdas"
+	"page" : 1 // same as before
+}

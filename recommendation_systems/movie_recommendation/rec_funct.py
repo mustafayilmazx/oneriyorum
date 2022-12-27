@@ -1,9 +1,11 @@
-import requests
 import pickle
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
-df2 = pickle.load(open("dataframe.pkl","rb"))
-indices = pickle.load(open("indices.pkl","rb"))
-cosine_sim = pickle.load(open("cosine_sim.pkl","rb"))
+
+df2 = pickle.load(open(current_dir + "/dataframe.pkl","rb"))
+indices = pickle.load(open(current_dir + "/indices.pkl","rb"))
+cosine_sim = pickle.load(open(current_dir + "/cosine_sim.pkl","rb"))
 
 def get_recommendations(title, cosine_sim=cosine_sim):
 
@@ -25,55 +27,76 @@ def get_recommendations(title, cosine_sim=cosine_sim):
     result = df2['title'].iloc[movie_indices]._values
     # Return the top 10 most similar movies
     return result
-
-# print(get_recommendations('Alvin and the Chipmunks: Chipwrecked'))
-
-liste = ["Avatar", "Alvin and the Chipmunks: Chipwrecked", "The Dark Knight Rises", "The Avengers"]
-
-#get recommendation for list and append 
-result = []
-for i in range(len(liste)):
-    result.append(get_recommendations(liste[i]))
-
-#concat every value in list
-result = [item for sublist in result for item in sublist]
-
-final = []
-for i in range(len(result)):
-    final.append(get_recommendations(result[i]))
-
-#concat every value in final list
-final = [item for sublist in final for item in sublist]
-
-#if element in final list is in liste list, delete it
-for i in range(len(liste)):
-    if liste[i] in final:
-        final.remove(liste[i])
+    
+liste = ["Avatar", "Alvin and the Chipmunks: Chipwrecked", "The Dark Knight Rises", "The Avengers","Spider-Man 3"]
 
 
-#create dict to count the number of times a movie appears in the list
-movie_dict = {}
+def movie_recommender(liste):
+    result = []
+    for i in range(len(liste)):
+        result.append(get_recommendations(liste[i]))
+    result = [item for sublist in result for item in sublist]
+    final = []
+    for i in range(len(result)):
+        final.append(get_recommendations(result[i]))
+    final = [item for sublist in final for item in sublist]
+    for i in range(len(liste)):
+        if liste[i] in final:
+            final = list(filter(lambda a: a != liste[i], final))
+    movie_dict = {}
+    for i in range(len(final)):
+        if final[i] in movie_dict:
+            movie_dict[final[i]] += 1
+        else:
+            movie_dict[final[i]] = 1
+    movie_dict = {k: v for k, v in sorted(movie_dict.items(), key=lambda item: item[1], reverse=True)}
+    return list(movie_dict.keys())[0:5]
 
-for i in range(len(final)):
-    if final[i] in movie_dict:
-        movie_dict[final[i]] += 1
-    else:
-        movie_dict[final[i]] = 1
+#print(movie_recommender(liste))
 
-#sort the dict by the number of times a movie appears in the list
-movie_dict = {k: v for k, v in sorted(movie_dict.items(), key=lambda item: item[1], reverse=True)}
-
-#return the first 5 movies
-print(list(movie_dict.keys())[0:6])
+def movie_dict(liste):
+    movie_dict_list = []
+    for film in movie_recommender(liste):
+        movie_dict_list.append((df2.loc[df2["original_title"] == film]).to_dict())
+    return movie_dict_list
 
 
+print(movie_dict(liste))
 
 
+# #get recommendation for list and append 
+# result = []
+# for i in range(len(liste)):
+#     result.append(get_recommendations(liste[i]))
 
-def fetch_poster(movie_id):
-    url = "https://api.themoviedb.org/3/movie/{}?api_key=4657d180fd350e82288e57d6fa9de986&language=en-US".format(movie_id)
-    data = requests.get(url)
-    data = data.json()
-    poster_path = data['poster_path']
-    full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
-    return full_path
+# #concat every value in list
+# result = [item for sublist in result for item in sublist]
+
+# final = []
+# for i in range(len(result)):
+#     final.append(get_recommendations(result[i]))
+
+# #concat every value in final list
+# final = [item for sublist in final for item in sublist]
+
+# #if element in final list is in liste list, delete it
+# for i in range(len(liste)):
+#     if liste[i] in final:
+#         final = list(filter(lambda a: a != liste[i], final))
+
+# #create dict to count the number of times a movie appears in the list
+# movie_dict = {}
+
+# for i in range(len(final)):
+#     if final[i] in movie_dict:
+#         movie_dict[final[i]] += 1
+#     else:
+#         movie_dict[final[i]] = 1
+
+# #sort the dict by the number of times a movie appears in the list
+# movie_dict = {k: v for k, v in sorted(movie_dict.items(), key=lambda item: item[1], reverse=True)}
+
+# #return the first 5 movies
+# print(list(movie_dict.keys())[0:5])
+
+ 

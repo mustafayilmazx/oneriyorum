@@ -15,10 +15,16 @@ app.use(express.urlencoded({extended: false}));
 //ROUTES 
 app.use('/api/post/', routes.post);
 app.use('/api/user/', routes.user);
-
+app.use('/api/comment/', routes.comment);
+app.use('/api/books/', routes.book);
+app.use('/api/movies/', routes.movie);
+app.use('/api/shows/', routes.show);
+app.use('/:username', routes.user);
 app.get("/", function(req, res){
     res.send("Hello World")
 });
+
+
 
 
 
